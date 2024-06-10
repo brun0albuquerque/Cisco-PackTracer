@@ -1,0 +1,67 @@
+		BASIC CONFIGURATION
+
+\\ Change to enable mode
+> enable
+
+\\ Show the mac address table
+# show mac address-table
+
+\\ Save the actual configuration
+# wr
+
+\\ Exit the actual mode
+(config)# exit
+(config)# end
+
+\\ Change the switch hostname
+(config)# hostname <name>
+
+\\ Show the interfaces status
+(config)# show ip interfaces brief
+
+\\ Turn down and up a port
+(config)# interface gigabitethernet 1/0/1
+(config-if)# shutdown
+(config-if)# no shutdown
+
+
+		VLAN CREATION
+
+\\ Show the vlan's
+# show vlan brief
+
+\\ Creating a new vlan
+#vlan database
+(vlan)# vlan <vlan> name <name>
+
+\\ Deleting a vlan
+(vlan)# no vlan <vlan>
+
+\\ Change a port vlan access
+(config)# interface gigabitethernet 1/0/1
+(config-if)# switchport mode access
+(config-if)# switchport access vlan <vlan>
+
+
+		TRUNK PORT
+
+\\ Show trunked ports
+#show interfaces trunk
+
+\\ Configure trunk on a port
+(config)# interface gigabitethernet 1/0/1
+(config-if)# switchport mode trunk
+(config-if)# switchport trunk encapsulation dot1q
+
+\\ Select which vlans are allowed through a specific port 
+(config-if)# switchport trunk allowed vlan 1,1001,1005 
+
+
+		GATEWAY ADDRESS
+
+\\ Configuring a gateway address
+(config)# interface vlan <vlan>
+(config-if)# ip add 10.0.0.1 255.0.0.0
+
+\\ Removing the gateway address
+(config-if)# no ip address
