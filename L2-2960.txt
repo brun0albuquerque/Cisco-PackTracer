@@ -1,0 +1,38 @@
+		BASIC CONFIGURATION
+
+\\ Change to enable mode
+> enable
+
+\\ Show the mac address table
+# show mac address-table
+
+\\ Save the actual configuration
+(user)# wr
+
+\\ Change the switch hostname
+(config)# hostname <name>
+
+
+		VLAN CREATION
+
+\\ Show the vlan's
+# show vlan brief
+
+\\ Create a vlan
+(config)# vlan <number>
+(config-vlan)# name <name>
+
+\\ Change a port vlan access
+(config)# interface fastethernet 0/1
+(config-if)# switchport mode access
+(config-if)# switchport access vlan <vlan>
+
+
+		TRUNK PORT
+
+\\ Show trunked ports
+#show interfaces trunk
+
+\\ Change port to trunk
+(config)# interface fastethernet 0/1
+(config-if)# switchport mode trunk
