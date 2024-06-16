@@ -1,0 +1,89 @@
+		BASIC CONFIGURATION
+
+\\ Change to enable mode
+> enable
+
+\\ Access privileged mode
+# configure terminal
+# conf t
+
+\\ Show the mac address table
+# show mac address-table
+
+\\ Save the actual configuration
+# write memory
+# wr
+
+\\ Exit the actual mode
+(config)# exit
+(config)# end
+
+\\ Change the switch hostname
+(config)# hostname <name>
+
+\\ Turn down and up a port
+(config)# interface gigabitethernet 1/0/1
+(config-if)# shutdown
+(config-if)# no shutdown
+
+
+		VLAN ACCESS
+
+\\ Show the vlan's
+# show vlan brief
+
+\\ Creating a new vlan
+#vlan database
+(vlan)# vlan <vlan> name <name>
+
+\\ Deleting a vlan
+(vlan)# no vlan <vlan>
+
+\\ Change a port vlan access
+(config)# interface gigabitethernet 1/0/1
+(config-if)# switchport access vlan <vlan>
+(config-if)# switchport mode access
+
+
+		TRUNK PORT
+
+\\ Show trunked ports
+#show interface trunk
+
+\\ Configure trunk on a port
+(config)# interface gigabitethernet 1/0/1
+(config-if)# switchport mode trunk
+
+\\ For specific type of encapsulation
+(config-if)# switchport trunk encapsulation dot1q
+
+\\ Select which vlans are allowed through a specific port 
+(config-if)# switchport trunk allowed vlan 1,1001,1005 
+
+
+		GATEWAY ADDRESS
+
+\\ Show the interfaces status
+(config)# show ip interface brief
+
+\\ Configuring a gateway address
+(config)# interface vlan <vlan>
+(config-if)# ip add 10.0.0.1 255.0.0.0
+(config-if)# no shutdown
+
+\\ Removing the gateway address
+(config-if)# no ip address
+
+\\ Show gateway route's
+# show ip route
+
+\\ Enable ip routing function
+(Config)# ip routing
+
+		STP PROTOCOL
+
+\\ Show STP information of all vlan's
+(Switch)# show spanning-tree
+
+\\ Show STP information for a specific vlan
+(Switch)# show spanning-tree vlan <vlan>
