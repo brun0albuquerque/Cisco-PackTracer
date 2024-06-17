@@ -11,8 +11,8 @@
 # show mac address-table
 
 \\ Save the actual configuration
+# copy running-config startup-config
 # write memory
-# wr
 
 \\ Exit the actual mode
 (config)# exit
@@ -41,14 +41,18 @@
 
 \\ Change a port vlan access
 (config)# interface gigabitethernet 1/0/1
-(config-if)# switchport access vlan <vlan>
 (config-if)# switchport mode access
+(config-if)# switchport access vlan <vlan>
 
+\\ To configure a range of ports
+(config)# interface range gigabitethernet 1/0/1 - 24
+(config-if-range)# switchport mode access
+(config-if-range)# switchport access vlan <vlan>
 
 		TRUNK PORT
 
 \\ Show trunked ports
-#show interface trunk
+#show interfaces trunk
 
 \\ Configure trunk on a port
 (config)# interface gigabitethernet 1/0/1
@@ -64,21 +68,22 @@
 		GATEWAY ADDRESS
 
 \\ Show the interfaces status
-(config)# show ip interface brief
+(config)# show ip interfaces brief
 
 \\ Configuring a gateway address
 (config)# interface vlan <vlan>
-(config-if)# ip add 10.0.0.1 255.0.0.0
+(config-if)# ip address 10.0.0.1 255.0.0.0
 (config-if)# no shutdown
 
 \\ Removing the gateway address
 (config-if)# no ip address
 
-\\ Show gateway route's
-# show ip route
-
 \\ Enable ip routing function
 (Config)# ip routing
+
+\\ Forward of broadcast
+(config)# interrface vlan <vlan>
+(config-if)# ip helper-address 10.0.0.1
 
 		STP PROTOCOL
 
@@ -87,3 +92,12 @@
 
 \\ Show STP information for a specific vlan
 (Switch)# show spanning-tree vlan <vlan>
+
+		DEFAULT ROUTE
+
+\\ Show ip routing table
+# show ip route
+
+\\ Create a static default route
+(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1
+
