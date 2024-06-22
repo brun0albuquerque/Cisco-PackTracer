@@ -1,0 +1,64 @@
+		BASIC COMMANDS
+
+\\ Change to privileged mode
+router> enable
+
+\\ Access privileged mode
+router# configure terminal
+
+\\ Show router running configuration
+router# show run
+
+\\ Save the configuration
+router# copy running-config startup-config [y | n]
+router# write memory
+
+\\ Connectivity test
+router# ping [destiny route]
+
+\\ Exit the configuration mode
+router(config)# exit
+router(config)# end
+
+\\ Change the hostname
+router(config)# hostname [new hostname]
+
+\\ Turn on and off a port
+router(config)# interface gigabitethernet 1/0/1
+router(config-if)# no shutdown
+router(config-if)# shutdown
+
+\\ Configuring the routing behavior
+router(config)# ip classless
+router(config)# no ip classless
+
+\\ Creating a static default route
+router(config)# ip route [destination ip] [destination mask] [next router interface ip or outgoing interface ip]
+router(config)# no ip route [destination ip] [destination mask] [next router interface ip or outgoing interface ip]
+
+\\ Configuring a default route
+router(config)# ip route 0.0.0.0 0.0.0.0 [next hop ip]
+
+		NAT CONFIGURATION
+
+\\ Show NAT translations
+router# show ip nat translations
+
+\\ Setting NAT configuration on a interface
+router(config)# interface gigabitethernet 1/0
+router(config-if)# ip nat [inside | outside]
+
+\\ Creating an access control list (ACL)
+router(config)# access-list [acl number] [permit | deny] [source] [destination] [options]
+
+\\ Sets up dynamic NAT overload (Port Address Translation)
+router(config)# ip nat inside source list 1 interface gigabitethernet 1/0
+
+		RIP PROTOCOL
+
+\\ Configuring RIP protocol
+router(config)# router rip
+router(config-router)# network [network ip]
+
+\\ Disabling the protocol
+router(config)# no router rip
