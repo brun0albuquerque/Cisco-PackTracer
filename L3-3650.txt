@@ -1,103 +1,141 @@
-		BASIC CONFIGURATION
+		BASIC COMMANDS
 
-\\ Change to enable mode
-> enable
+\\ Change to privileged mode
+switch> enable
 
 \\ Access privileged mode
-# configure terminal
-# conf t
+switch# configure terminal 
 
-\\ Show the mac address table
-# show mac address-table
+\\ Show router running configuration
+router# show run
 
-\\ Save the actual configuration
-# copy running-config startup-config
-# write memory
+\\ Save the configuration
+switch# copy running-config startup-config [y | n]
+switch# write memory
 
-\\ Exit the actual mode
-(config)# exit
-(config)# end
+\\ Connectivity test
+switch# ping [destiny route]
 
-\\ Change the switch hostname
-(config)# hostname <name>
+\\ Show the MAC address table
+switch# show mac address-table
 
-\\ Turn down and up a port
-(config)# interface gigabitethernet 1/0/1
-(config-if)# shutdown
-(config-if)# no shutdown
+\\ Exit the configuration mode
+switch(config)# exit
+switch(config)# end
 
+\\ Change the hostname
+switch(config)# hostname [new hostname]
 
-		VLAN ACCESS
+\\ Turn on and off a port
+switch(config)# interface gigabitethernet 1/0/1
+switch(config-if)# no shutdown
+switch(config-if)# shutdown
 
-\\ Show the vlan's
-# show vlan brief
+		VLAN MANAGEMENT
 
-\\ Creating a new vlan
-#vlan database
-(vlan)# vlan <vlan> name <name>
+\\ Show the VLAN's
+switch# show vlan brief
 
-\\ Deleting a vlan
-(vlan)# no vlan <vlan>
+\\ Creating a new VLAN
+switch# vlan database
+switch(vlan)# vlan [vlan id] name [vlan name]
 
-\\ Change a port vlan access
-(config)# interface gigabitethernet 1/0/1
-(config-if)# switchport mode access
-(config-if)# switchport access vlan <vlan>
+\\ Deleting a VLAN
+switch(vlan)# no vlan [vlan id]
 
-\\ To configure a range of ports
-(config)# interface range gigabitethernet 1/0/1 - 24
-(config-if-range)# switchport mode access
-(config-if-range)# switchport access vlan <vlan>
+\\ Setting access port
+switch(config)# interface gigabitethernet 1/0/1
+switch(config-if)# switchport mode access
+switch(config-if)# switchport access vlan [vlan id]
 
-		TRUNK PORT
+\\ Configuring a specific range of ports
+switch(config)# interface range gigabitethernet 1/0/1 - 24
+switch(config-if-range)# switchport mode access
+switch(config-if-range)# switchport access vlan [vlan id]
+
+		TRUNK CONFIGURATION
 
 \\ Show trunked ports
-#show interfaces trunk
+switch# show interfaces trunk
 
 \\ Configure trunk on a port
-(config)# interface gigabitethernet 1/0/1
-(config-if)# switchport mode trunk
+switch(config)# interface gigabitethernet 1/0/1
+switch(config-if)# switchport mode trunk
 
 \\ For specific type of encapsulation
-(config-if)# switchport trunk encapsulation dot1q
+switch(config-if)# switchport trunk encapsulation dot1q
 
-\\ Select which vlans are allowed through a specific port 
-(config-if)# switchport trunk allowed vlan 1,1001,1005 
+\\ Select which VLAN's are allowed through a specific port 
+switch(config-if)# switchport trunk allowed vlan [vlan id]
 
-
-		GATEWAY ADDRESS
+		GATEWAY CONFIGURATION
 
 \\ Show the interfaces status
-(config)# show ip interfaces brief
+switch(config)# show ip interfaces brief
 
 \\ Configuring a gateway address
-(config)# interface vlan <vlan>
-(config-if)# ip address 10.0.0.1 255.0.0.0
-(config-if)# no shutdown
+switch(config)# interface vlan [vlan id]
+switch(config-if)# ip address [ip] [subnet mask]
+switch(config-if)# no shutdown
 
 \\ Removing the gateway address
-(config-if)# no ip address
+switch(config-if)# no ip address
 
-\\ Enable ip routing function
-(Config)# ip routing
+\\ Enable and disable IP routing function
+switch(config)# ip routing
+switch(config)# no ip routing
 
 \\ Forward of broadcast
-(config)# interrface vlan <vlan>
-(config-if)# ip helper-address 10.0.0.1
+switch(config)# interface vlan [vlan id]
+switch(config-if)# ip helper-address [ip]
 
 		STP PROTOCOL
 
-\\ Show STP information of all vlan's
-(Switch)# show spanning-tree
+\\ Show switch STP configuration
+switch# show spanning-tree
 
-\\ Show STP information for a specific vlan
-(Switch)# show spanning-tree vlan <vlan>
+\\ Show STP information for a specific VLAN
+switch# show spanning-tree vlan [vlan id]
 
-		DEFAULT ROUTE
+\\ Configure STP mode
+switch(config)# spanning-tree mode [stp | rstp | mst]
 
-\\ Show ip routing table
-# show ip route
+\\ Set default path cost
+switch(config)# spanning-tree pathcost method [long | short]
 
-\\ Create a static default route
-(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.1
+\\ Specifies brigde priority
+switch(config)# spanning-tree vlan [vlan id] priority [value]
 
+\\ Configure the max agr
+switch(config)# spanning-tree max-age [seconds]
+
+\\ Specifies the forwarding time
+switch(config)# spanning-tree forward-time [seconds]
+
+\\ Configure the loop guard
+switch(config)# spanning-tree loopback-guard
+
+		CHANNEL GROUP
+
+\\ Show etherchannel summary
+switch# show etherchannel summary
+
+\\ Configuring using LACP
+switch(config)# interface gigabitethernet 1/0/1 - 2
+switch(config-if)# channel-group 1 mode active
+
+\\ Configuring using PAgP
+switch(config)# interface gigabitethernet 1/0/1 - 2
+switch(config-if)# channel-group 1 mode desirable
+
+		DEFAULT ROUTE 
+
+\\ Show IP routing table
+switch# show ip route
+
+\\ Configuring a default route
+router(config)# ip route 0.0.0.0 0.0.0.0 [next hop ip]
+
+\\ Configure a static route
+switch(config)# ip route [destination ip] [destination mask] [next router interface ip or outgoing interface ip]
+switch(config)# no ip route [destination ip] [destination mask] [next router interface ip or outgoing interface ip]
