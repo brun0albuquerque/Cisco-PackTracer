@@ -1,17 +1,35 @@
 		BASIC CONFIGURATION
 
-\\ Change to enable mode
-> enable
+\\ Change to privileged mode
+switch> enable
 
-\\ Show the mac address table
-# show mac address-table
+\\ Access privileged mode
+switch# configure terminal 
 
-\\ Save the actual configuration
-(user)# wr
+\\ Show interface configuration
+switch# show interface fastethernet 0/1 switchport
 
-\\ Change the switch hostname
-(config)# hostname <name>
+\\ Save the configuration
+switch# copy running-config startup-config [y | n]
+switch# write memory
 
+\\ Connectivity test
+switch# ping [destiny route]
+
+\\ Show the MAC address table
+switch# show mac address-table
+
+\\ Exit the configuration mode
+switch(config)# exit
+switch(config)# end
+
+\\ Change the hostname
+switch(config)# hostname [new hostname]
+
+\\ Turn on and off a port
+switch(config)# interface fastethernet 0/1
+switch(config-if)# no shutdown
+switch(config-if)# shutdown
 
 		VLAN CREATION
 
@@ -22,11 +40,15 @@
 (config)# vlan <number>
 (config-vlan)# name <name>
 
-\\ Change a port vlan access
+\\ Configuring access port vlan
 (config)# interface fastethernet 0/1
 (config-if)# switchport mode access
 (config-if)# switchport access vlan <vlan>
 
+\\ Configuring a voice vlan
+switch(config)# interface gigabitethernet 1/0/1
+switch(config-if)# switchport mode access
+switch(config-if)# switchport voice vlan [vlan id]
 
 		TRUNK PORT
 
