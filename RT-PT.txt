@@ -7,7 +7,7 @@ router> enable
 router# configure terminal
 
 \\ Show router running configuration
-router# show run
+router# show running-config
 
 \\ Save the configuration
 router# copy running-config startup-config [y | n]
@@ -62,3 +62,25 @@ router(config-router)# network [network ip]
 
 \\ Disabling the protocol
 router(config)# no router rip
+
+		DHCP CONFIGURATION
+
+\\ Show the DHCP pool
+router# show ip dhcp pool
+
+\\ Show a list of IP's dynamically assigned
+router# show ip dhcp binding
+
+\\ Reserving IP addresses outside the DHCP pool
+switch(config)# ip dhcp excluded-address [initial address] [final address]
+
+\\ Creating a IP addresses pool
+router(config)# ip dhcp pool [pool name]
+router(dhcp-config)# network [network ip] [subnet mask]
+router(dhcp-config)# default router [gateway]
+router(dhcp-config)# dns-server [primary dns server] [secondary dns server]
+router(dhcp-config)# lease [value in days]
+
+\\ DHCP request forwarding
+switch(config)# interface vlan [vlan id]
+switch(config-if)# ip helper-address [ip]
