@@ -169,6 +169,9 @@ switch(config-if)# ip helper-address [ip]
 
 		HSRP CONFIGURATION
 
+\\ Show HSRP configuration
+switch# show standby brief
+
 \\ HSRP basic configuration
 switch(config)# interface vlan [vlan id]
 switch(config-if)# standby version 2
