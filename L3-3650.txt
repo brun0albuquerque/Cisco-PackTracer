@@ -6,8 +6,8 @@ switch> enable
 \\ Access privileged mode
 switch# configure terminal 
 
-\\ Show router running configuration
-router# show run
+\\ Show interface configuration
+switch# show interface gigabitethernet 1/0/1 switchport
 
 \\ Save the configuration
 switch# copy running-config startup-config [y | n]
@@ -43,17 +43,22 @@ switch(vlan)# vlan [vlan id] name [vlan name]
 \\ Deleting a VLAN
 switch(vlan)# no vlan [vlan id]
 
-\\ Setting access port
+\\ Configuring access port vlan
 switch(config)# interface gigabitethernet 1/0/1
 switch(config-if)# switchport mode access
 switch(config-if)# switchport access vlan [vlan id]
+
+\\ Configuring a voice vlan
+switch(config)# interface gigabitethernet 1/0/1
+switch(config-if)# switchport mode access
+switch(config-if)# switchport voice vlan [vlan id]
 
 \\ Configuring a specific range of ports
 switch(config)# interface range gigabitethernet 1/0/1 - 24
 switch(config-if-range)# switchport mode access
 switch(config-if-range)# switchport access vlan [vlan id]
 
-		TRUNK CONFIGURATION
+		VTP CONFIGURATION
 
 \\ Show trunked ports
 switch# show interfaces trunk
@@ -85,11 +90,7 @@ switch(config-if)# no ip address
 switch(config)# ip routing
 switch(config)# no ip routing
 
-\\ Forward of broadcast
-switch(config)# interface vlan [vlan id]
-switch(config-if)# ip helper-address [ip]
-
-		STP PROTOCOL
+		STP CONFIGURATION
 
 \\ Show switch STP configuration
 switch# show spanning-tree
@@ -115,18 +116,22 @@ switch(config)# spanning-tree forward-time [seconds]
 \\ Configure the loop guard
 switch(config)# spanning-tree loopback-guard
 
-		CHANNEL GROUP
+		ETHERCHANNEL CONFIGURATION
 
 \\ Show etherchannel summary
 switch# show etherchannel summary
 
 \\ Configuring using LACP
-switch(config)# interface gigabitethernet 1/0/1 - 2
-switch(config-if)# channel-group 1 mode active
+switch(config)# interface range gigabitethernet 1/0/1 - 2
+switch(config-if)# channel-group [channel id] mode active
 
 \\ Configuring using PAgP
-switch(config)# interface gigabitethernet 1/0/1 - 2
-switch(config-if)# channel-group 1 mode desirable
+switch(config)# interface range gigabitethernet 1/0/1 - 2
+switch(config-if)# channel-group [channel id] mode desirable
+
+\\ Accessing the etherchannel configuration
+(config)# interface port-channel [channel id]
+(config-if)# switchport mode trunk
 
 		DEFAULT ROUTE 
 
@@ -139,3 +144,35 @@ router(config)# ip route 0.0.0.0 0.0.0.0 [next hop ip]
 \\ Configure a static route
 switch(config)# ip route [destination ip] [destination mask] [next router interface ip or outgoing interface ip]
 switch(config)# no ip route [destination ip] [destination mask] [next router interface ip or outgoing interface ip]
+
+		DHCP CONFIGURATION
+
+\\ Show the DHCP pool
+switch# show ip dhcp pool
+
+\\ Show a list of IP's dynamically assigned
+switch# show ip dhcp binding
+
+\\ Reserving IP addresses outside the DHCP pool
+switch(config)# ip dhcp excluded-address [initial address] [final address]
+
+\\ Creating a IP addresses pool
+switch(config)# ip dhcp pool [pool name]
+switch(dhcp-config)# network [network ip] [subnet mask]
+switch(dhcp-config)# default router [gateway]
+switch(dhcp-config)# dns-server [primary dns server] [secondary dns server]
+switch(dhcp-config)# lease [value in days]
+
+\\ DHCP request forwarding
+switch(config)# interface vlan [vlan id]
+switch(config-if)# ip helper-address [ip]
+
+		HSRP CONFIGURATION
+
+\\ HSRP basic configuration
+switch(config)# interface vlan [vlan id]
+switch(config-if)# standby version 2
+switch(config-if)# standby 1 ip [gateway]
+switch(config-if)# standby 1 priority [value] *standard value: 100
+switch(config-if)# standby 1 preempt
+
