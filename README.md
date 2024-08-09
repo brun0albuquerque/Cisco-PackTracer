@@ -31,3 +31,9 @@ L3-3650: Layer 3 switch model 3650-24PS.
 RT-PT: Packet tracer router.
 WAAS CLI Reference: Cisco Wide Area Application Services Command Line Interface Reference.
 netwrk_v5-2406-c12: Project version 5, june, 24, lesson 12.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Download Packet Tracer:
+
+https://skillsforall.com/resources/lab-downloads?userLang=pt-BR&courseLang=en-US
