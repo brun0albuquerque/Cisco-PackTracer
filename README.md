@@ -16,7 +16,7 @@ netwrk_v5-2406-c12: Versão do projeto 5, 24 de junho, aula 12.
 
 -------------------------------------------------------------------------------------------------------------------------
 
-Study material used in the cintroductory computer networks course.
+Study material used in the introductory computer networks course.
 
 Course:
 https://gustavokalau.com.br/courses/redes-de-computadores-basico-mao-na-massa/lessons/mao-na-massa/
